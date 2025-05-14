@@ -21,7 +21,7 @@ phases:
       # Upload styles.css
       - |
         if [ -f styles.css ]; then
-          aws s3 cp styles.css s3://oes-web-dashboard/styles.css || echo "Failed to upload styles.css"
+          aws s3 cp style.css s3://oes-web-dashboard/style.css || echo "Failed to upload styles.css"
         else
           echo "styles.css not found"
         fi
