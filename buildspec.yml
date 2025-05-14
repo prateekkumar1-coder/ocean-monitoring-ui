@@ -2,15 +2,12 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      nodejs: 14
     commands:
       - echo "Installing..."
-      - aws --version || echo "AWS CLI not found"
+      - aws --version
   build:
     commands:
-      - echo "Build completed. Uploading files to S3..."
-      # Upload index.html and styles.css directly to S3 root
+      - echo "Uploading index.html and styles.css to oes-web-dashboard..."
       - |
         if [ -f index.html ]; then
           aws s3 cp index.html s3://oes-web-dashboard/index.html || echo "Failed to upload index.html"
