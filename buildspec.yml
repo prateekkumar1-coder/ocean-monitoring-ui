@@ -3,13 +3,15 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Installing..."
+      - echo Installing...
   build:
     commands:
-      - echo "Build completed."
+      - echo Build completed.
+      # Upload index.html directly to S3 root for static hosting
+      - aws s3 cp index.html s3://oes-web-dashboard/index.html
 
 artifacts:
   files:
     - '**/*'
-  discard-paths: yes
   base-directory: .
+  name: build-artifacts
