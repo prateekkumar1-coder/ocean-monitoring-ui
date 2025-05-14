@@ -7,11 +7,12 @@ phases:
   build:
     commands:
       - echo Build completed.
-      # Upload index.html directly to S3 root for static hosting
+      # Upload index.html and styles.css directly to S3 root
       - aws s3 cp index.html s3://oes-web-dashboard/index.html
+      - aws s3 cp styles.css s3://oes-web-dashboard/styles.css
 
 artifacts:
   files:
     - '**/*'
   base-directory: .
-  name: build-artifacts
+  name: build-artifact
