@@ -2,14 +2,27 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 14
     commands:
-      - echo Installing...
+      - echo "Installing..."
+      - aws --version || echo "AWS CLI not found"
   build:
     commands:
-      - echo Build completed.
+      - echo "Build completed. Uploading files to S3..."
       # Upload index.html and styles.css directly to S3 root
-      - aws s3 cp index.html s3://oes-web-dashboard/index.html
-      - aws s3 cp styles.css s3://oes-web-dashboard/styles.css
+      - |
+        if [ -f index.html ]; then
+          aws s3 cp index.html s3://oes-web-dashboard/index.html || echo "Failed to upload index.html"
+        else
+          echo "index.html not found"
+        fi
+      - |
+        if [ -f styles.css ]; then
+          aws s3 cp styles.css s3://oes-web-dashboard/styles.css || echo "Failed to upload styles.css"
+        else
+          echo "styles.css not found"
+        fi
 
 artifacts:
   files:
