@@ -7,18 +7,30 @@ phases:
       - aws --version
   build:
     commands:
-      - echo "Uploading index.html and styles.css to S3..."
+      - echo "Uploading dashboard files to oes-web-dashboard..."
+
+      # Upload index.html
       - |
         if [ -f index.html ]; then
           aws s3 cp index.html s3://oes-web-dashboard/index.html || echo "Failed to upload index.html"
         else
           echo "index.html not found"
         fi
+
+      # Upload styles.css
       - |
-        if [ -f style.css ]; then
-          aws s3 cp style.css s3://oes-web-dashboard/style.css || echo "Failed to upload styles.css"
+        if [ -f styles.css ]; then
+          aws s3 cp styles.css s3://oes-web-dashboard/styles.css || echo "Failed to upload styles.css"
         else
           echo "styles.css not found"
+        fi
+
+      # Upload data.json
+      - |
+        if [ -f data.json ]; then
+          aws s3 cp data.json s3://oes-web-dashboard/data.json || echo "Failed to upload data.json"
+        else
+          echo "data.json not found"
         fi
 
 artifacts:
