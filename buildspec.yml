@@ -3,12 +3,13 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Installing..."
+      - echo "Installing dependencies..."
       - aws --version
+
   build:
     commands:
-      - echo "Uploading dashboard files to oes-web-dashboard..."
-
+      - echo "Starting file upload to static website bucket..."
+      
       # Upload index.html
       - |
         if [ -f index.html ]; then
@@ -20,7 +21,7 @@ phases:
       # Upload styles.css
       - |
         if [ -f styles.css ]; then
-          aws s3 cp style.css s3://oes-web-dashboard/style.css || echo "Failed to upload styles.css"
+          aws s3 cp styles.css s3://oes-web-dashboard/styles.css || echo "Failed to upload styles.css"
         else
           echo "styles.css not found"
         fi
