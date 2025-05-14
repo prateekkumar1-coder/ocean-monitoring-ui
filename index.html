@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>OES Ocean Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>OES Ocean Monitoring Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Ocean Monitoring Dashboard</h1>
-  <p>Wave height and temperature live feed coming soon...</p>
+  <h1>🌊 Ocean Monitoring Dashboard</h1>
+
+  <div id="dashboard">
+    <p><strong>Buoy ID:</strong> <span id="buoyId">Loading...</span></p>
+    <p><strong>Wave Height:</strong> <span id="waveHeight">Loading...</span></p>
+    <p><strong>Temperature:</strong> <span id="temperature">Loading...</span></p>
+    <p><strong>Timestamp:</strong> <span id="timestamp">Loading...</span></p>
+  </div>
+
+  <script>
+    fetch('data.json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('buoyId').innerText = data.buoyId || "N/A";
+        document.getElementById('waveHeight').innerText = data.waveHeight + " m";
+        document.getElementById('temperature').innerText = data.temperature + " °C";
+        document.getElementById('timestamp').innerText = data.timestamp || "N/A";
+      })
+      .catch(error => {
+        document.getElementById('dashboard').innerHTML = '<p style="color:red;">Failed to load data.</p>';
+        console.error("Error loading data.json:", error);
+      });
+  </script>
 </body>
 </html>
