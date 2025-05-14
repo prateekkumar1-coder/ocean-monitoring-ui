@@ -7,7 +7,7 @@ phases:
       - aws --version
   build:
     commands:
-      - echo "Uploading index.html and styles.css to oes-web-dashboard..."
+      - echo "Uploading index.html and styles.css to S3..."
       - |
         if [ -f index.html ]; then
           aws s3 cp index.html s3://oes-web-dashboard/index.html || echo "Failed to upload index.html"
@@ -15,8 +15,8 @@ phases:
           echo "index.html not found"
         fi
       - |
-        if [ -f styles.css ]; then
-          aws s3 cp styles.css s3://oes-web-dashboard/styles.css || echo "Failed to upload styles.css"
+        if [ -f style.css ]; then
+          aws s3 cp style.css s3://oes-web-dashboard/style.css || echo "Failed to upload styles.css"
         else
           echo "styles.css not found"
         fi
